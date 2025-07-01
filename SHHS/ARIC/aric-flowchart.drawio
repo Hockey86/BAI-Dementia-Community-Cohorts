@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" modified="2024-06-06T02:54:30.834Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="q3n94Xv7oGcHWuhhMFWG" version="24.4.14" type="device">
+  <diagram name="Page-1" id="KZPk5YhzVo0SLNYOXqZC">
+    <mxGraphModel dx="931" dy="609" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-1" target="Vynmr4fGNKwktp3CJQn6-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;n = 6441&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;enrolled in SHHS visit 1&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="20" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-2" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 5793&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-2" target="Vynmr4fGNKwktp3CJQn6-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-7" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 1914&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-19" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 1825&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="280" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-22" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-7" target="Vynmr4fGNKwktp3CJQn6-19" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="249" as="sourcePoint" />
+            <mxPoint x="221" y="279" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="179" as="sourcePoint" />
+            <mxPoint x="282" y="179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="96" as="sourcePoint" />
+            <mxPoint x="282" y="96" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-27" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 1820&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="360" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="Vynmr4fGNKwktp3CJQn6-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="320" as="sourcePoint" />
+            <mxPoint x="221" y="359" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-32" value="&lt;span style=&quot;background-color: initial;&quot;&gt;participants without sleep recording on NSRR&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="72" width="171" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-1" value="ancillary study not from ARIC" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="155" width="161" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-2" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;n = 15004&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;from ARIC Visit 7 with dementia outcome&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="20" y="20" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="TRgen1p-SEFns7ud5g_B-2" target="Vynmr4fGNKwktp3CJQn6-19" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="90" as="sourcePoint" />
+            <mxPoint x="580" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="80" y="260" />
+              <mxPoint x="221" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-9" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 1818&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="440" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-10" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-27" target="TRgen1p-SEFns7ud5g_B-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="400" as="sourcePoint" />
+            <mxPoint x="221" y="439" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="339" as="sourcePoint" />
+            <mxPoint x="282" y="339" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-12" value="error while computing brain age index" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="315" width="161" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-13" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="418" as="sourcePoint" />
+            <mxPoint x="282" y="418" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TRgen1p-SEFns7ud5g_B-14" value="prevalent dementia" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="394" width="161" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

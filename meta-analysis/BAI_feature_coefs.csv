@@ -1,0 +1,14 @@
+Name,HR,LB,UB,P
+BAI,1.3863,1.2091,1.5895,0.0
+COUPL_OVERLAP_C,0.9867,0.9766,0.9968,0.01
+DENS_C,0.1877,0.0541,0.651,0.0084
+sigma_bandpower_kurtosis_C_N2,0.7176,0.5624,0.9158,0.0076
+delta_bandpower_kurtosis_C_N2,0.7379,0.5716,0.9526,0.0197
+theta_bandpower_kurtosis_C_N2,0.3985,0.2264,0.7014,0.0014
+alpha_bandpower_kurtosis_C_N2,0.6236,0.4243,0.9164,0.0162
+kurtosis_N2_C,0.2279,0.1124,0.4618,0.0
+delta_bandpower_mean_C_N3,0.1818,0.0086,3.8482,0.2737
+delta_alpha_mean_C_N3,0.022,0.0004,1.3585,0.0696
+delta_theta_mean_C_N3,0.0043,0.0,0.5367,0.0269
+theta_bandpower_kurtosis_C_N3,0.5946,0.3812,0.9274,0.0219
+kurtosis_N3_C,0.6471,0.1471,2.8474,0.5648

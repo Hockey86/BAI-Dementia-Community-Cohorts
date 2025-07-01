@@ -1,0 +1,117 @@
+<mxfile host="app.diagrams.net" modified="2024-07-06T02:02:23.076Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="gb7to8omHHDKZfXP--jL" version="24.6.4" type="device">
+  <diagram name="Page-1" id="KZPk5YhzVo0SLNYOXqZC">
+    <mxGraphModel dx="954" dy="640" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-1" target="Vynmr4fGNKwktp3CJQn6-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;n = 4727&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;at Visit 8&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-2" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 453&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-2" target="Vynmr4fGNKwktp3CJQn6-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-7" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 447&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-19" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 441&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="280" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-22" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Vynmr4fGNKwktp3CJQn6-7" target="Vynmr4fGNKwktp3CJQn6-19" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="249" as="sourcePoint" />
+            <mxPoint x="221" y="279" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="179" as="sourcePoint" />
+            <mxPoint x="282" y="179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="96" as="sourcePoint" />
+            <mxPoint x="282" y="96" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-25" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="258" as="sourcePoint" />
+            <mxPoint x="282" y="258" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-27" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 408&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="171" y="360" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="Vynmr4fGNKwktp3CJQn6-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="320" as="sourcePoint" />
+            <mxPoint x="221" y="359" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-29" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="338" as="sourcePoint" />
+            <mxPoint x="282" y="338" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-30" value="&lt;span style=&quot;background-color: initial;&quot;&gt;African American has no mortality information at Visit 9&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="313" width="186" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-31" value="&lt;span style=&quot;background-color: initial;&quot;&gt;error while computing brain age index&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="236" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Vynmr4fGNKwktp3CJQn6-32" value="&lt;ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;participants did not attend the sleep study&lt;/span&gt;&lt;/li&gt;&lt;li&gt;sleep recording was not available&lt;/li&gt;&lt;li&gt;sleep recording did not pass quality control&lt;/li&gt;&lt;/ol&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="263" y="56" width="317" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="w3buV-ELVjIDE6MyyxO4-1" value="no age available" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="289" y="154" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-3" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 399&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="171" y="439" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="d7Tsxg_42R76xJIvKzyt-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="399" as="sourcePoint" />
+            <mxPoint x="221" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="417" as="sourcePoint" />
+            <mxPoint x="282" y="417" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-6" value="EEG signal is poor in either left or right central channel" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="289" y="392" width="186" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-7" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;n = 375&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="171" y="518" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="d7Tsxg_42R76xJIvKzyt-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="478" as="sourcePoint" />
+            <mxPoint x="221" y="517" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221" y="496" as="sourcePoint" />
+            <mxPoint x="282" y="496" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d7Tsxg_42R76xJIvKzyt-10" value="prevalent dementia" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="289" y="471" width="186" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
