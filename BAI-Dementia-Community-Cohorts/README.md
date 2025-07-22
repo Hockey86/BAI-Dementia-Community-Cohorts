@@ -1,1 +1,0 @@
-# BAI-Dementia-Community-Cohorts
