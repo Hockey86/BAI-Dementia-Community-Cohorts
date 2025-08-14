@@ -4,19 +4,19 @@ library(metap)
 
 # Prepare the data
 data.dir <- "/data/haoqisun/BAI_dementia_community"
-data.type <- "withoutAPOE"
-col.interaction <- 'sex'
-res.dir <- file.path(data.dir, 'meta-analysis', data.type)
+#data.type <- "withoutAPOE"
+col.interaction <- 'APOE4'
+res.dir <- file.path(data.dir, 'meta-analysis')#, data.type)
 
-df.mesa <- read.csv(file.path(data.dir, sprintf('MESA/%s_interaction_results_MESA-survival-%s.csv', col.interaction, data.type)))
-df.aric <- read.csv(file.path(data.dir, sprintf('SHHS/ARIC/%s_interaction_results_ARIC-survival-%s.csv', col.interaction, data.type)))
-df.fhs <- read.csv(file.path(data.dir, sprintf('SHHS/FHS/%s_interaction_results_FHS-survival-%s.csv', col.interaction, data.type)))
-#df.mros <- read.csv(file.path(data.dir, sprintf('MrOS/%s_interaction_results_MrOS-survival-%s.csv', col.interaction, data.type)))
-#df.sof <- read.csv(file.path(data.dir, sprintf('SOF/%s_interaction_results_SOF-survival-%s.csv', col.interaction, data.type)))
+df.mesa <- read.csv(file.path(data.dir, sprintf('MESA/interaction_results_MESA_%s-survival.csv', col.interaction)))
+#df.aric <- read.csv(file.path(data.dir, sprintf('SHHS/ARIC/interaction_results_ARIC_%s-survival.csv', col.interaction)))
+df.fhs <- read.csv(file.path(data.dir, sprintf('SHHS/FHS/interaction_results_FHS_%s-survival.csv', col.interaction)))
+df.mros <- read.csv(file.path(data.dir, sprintf('MrOS/interaction_results_MrOS_%s-survival.csv', col.interaction)))
+df.sof <- read.csv(file.path(data.dir, sprintf('SOF/interaction_results_SOF_%s-survival.csv', col.interaction)))
 
 scale <- 10
 
-studies <- c("MESA", "ARIC", "FHS")#, "MrOS")#, "SOF")
+studies <- c("MESA", "FHS", "MrOS", "SOF")#, "ARIC")
 
 hrs <- c()
 ci_lowers <- c()
@@ -59,7 +59,7 @@ p_combined <- metap::sumlog(data$p_value)
 summary_text2 <- capture.output(p_combined)
 
 summary_text <- c(summary_text, summary_text2)
-writeLines(summary_text, file.path(res.dir, sprintf("meta_analysis_%s_interaction_result_-survival.txt", col.interaction)))
+writeLines(summary_text, file.path(res.dir, sprintf("meta_analysis_%s_interaction_result-survival.txt", col.interaction)))
 #print(summary_text)
 
 #png(sprintf("forest_plot_%s.png", model.type), width = 700*2, height = 300*2)#, dpi=300)
