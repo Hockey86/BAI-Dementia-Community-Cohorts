@@ -1,5 +1,6 @@
 Rscript step6_analysis-survival.R BAI
-Rscript step6_analysis-survival.R BAI withAPOE
+#Rscript step6_analysis-survival.R BAI withAPOE
+#Rscript step6_analysis-survival.R BAI withoutAPOE-matched
 #Rscript step6_analysis-survival.R BAI withoutAPOE young
 #Rscript step6_analysis-survival.R BAI withoutAPOE old
 #Rscript step6_analysis-survival.R BAI withoutAPOE male
@@ -10,5 +11,5 @@ do
     Rscript step6_analysis-survival.R $x
 done
 
-#Rscript step?_analysis-survival-interaction.R
-Rscript step7_analysis-survival-ROC.R
+Rscript step8_analysis-survival-interaction.R
+#Rscript step7_analysis-survival-ROC.R

@@ -1,5 +1,6 @@
 Rscript step3_analysis-survival.R BAI
 Rscript step3_analysis-survival.R BAI withAPOE
+Rscript step3_analysis-survival.R BAI withoutAPOE-matched
 Rscript step3_analysis-survival.R BAI withoutAPOE young
 Rscript step3_analysis-survival.R BAI withoutAPOE old
 Rscript step3_analysis-survival.R BAI withoutAPOE male
@@ -11,4 +12,4 @@ do
 done
 
 Rscript step4_analysis-survival-interaction.R
-Rscript step5_analysis-survival-ROC.R
+#Rscript step5_analysis-survival-ROC.R

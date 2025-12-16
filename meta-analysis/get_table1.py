@@ -35,7 +35,8 @@ rows = [
 '    Time from sleep recording, median (IQR), y',
 'Follow-up time, median (min-max), y',
 'Body mass index (BMI), median (IQR), kg/m2',
-#'Current smoker, n(%)',
+'Baseline cognitive score, median (% normal)',
+'Current smoker, n(%)',
 'Hypertension, n(%)',
 'Diabetes, n(%)',
 'Myocardial infarction, n(%)',
@@ -63,6 +64,11 @@ df_res.iloc[rows.index('N'), di] = len(df)
 df_res.iloc[rows.index('Age, mean (SD), y'), di] = f'{df.age.mean():.1f} ({df.age.std():.1f})'
 df_res.iloc[rows.index('    Female, n(%)'), di] = '0 (0%)'
 df_res.iloc[rows.index('    Male, n(%)'), di] = f'{len(df)} (100%)'
+print(dataset)
+print(f'Female N(event) = {0}')
+print(f'Male N(event) = {(df.event=="dementia").sum()}')
+print(f'Age<70: N = {(df.age<70).sum()}, N(event) = {((df.age<70)&(df.event=="dementia")).sum()}')
+print(f'Age>=70: N = {(df.age>=70).sum()}, N(event) = {((df.age>=70)&(df.event=="dementia")).sum()}')
 df_res.iloc[rows.index('    Asian, n(%)'), di] = f'{df.race_Asian.sum()} ({df.race_Asian.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Black, n(%)'), di] = f'{df.race_Black.sum()} ({df.race_Black.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Hispanic, n(%)'), di] = '--'
@@ -84,7 +90,9 @@ q1, q2, q3 = np.nanpercentile(df.time2event, (0,50,100))
 df_res.iloc[rindex(rows, 'Follow-up time, median (min-max), y'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
-#df_res.loc['Current smoker, n(%)', di] = f'{}({:.1f}%)'
+df2 = df.dropna(subset='tms').reset_index(drop=True)
+df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'3MS {df2.tms.median():.0f} ({(df2.tms>=81).mean()*100:.1f}%)'
+df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f} ({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f} ({df.diabetes.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Myocardial infarction, n(%)'), di] = f'{df.heartattack.sum():.0f} ({df.heartattack.mean()*100:.1f}%)'
@@ -110,6 +118,11 @@ df_res.iloc[rows.index('N'), di] = len(df)
 df_res.iloc[rows.index('Age, mean (SD), y'), di] = f'{df.age.mean():.1f} ({df.age.std():.1f})'
 df_res.iloc[rows.index('    Female, n(%)'), di] = f'{len(df)}(100%)'
 df_res.iloc[rows.index('    Male, n(%)'), di] = '0(0%)'
+print(dataset)
+print(f'Female N(event) = {(df.event=="dementia").sum()}')
+print(f'Male N(event) = {0}')
+print(f'Age<70: N = {(df.age<70).sum()}, N(event) = {((df.age<70)&(df.event=="dementia")).sum()}')
+print(f'Age>=70: N = {(df.age>=70).sum()}, N(event) = {((df.age>=70)&(df.event=="dementia")).sum()}')
 df_res.iloc[rows.index('    Asian, n(%)'), di] = '0(0%)'
 df_res.iloc[rows.index('    Black, n(%)'), di] = '0(0%)'
 df_res.iloc[rows.index('    Hispanic, n(%)'), di] = '--'
@@ -131,7 +144,9 @@ q1, q2, q3 = np.nanpercentile(df.time2event, (0,50,100))
 df_res.iloc[rindex(rows, 'Follow-up time, median (min-max), y'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
-#df_res.loc['Current smoker, n(%)', di] = f'{}({:.1f}%)'
+df2 = df.dropna(subset='mmse').reset_index(drop=True)
+df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Myocardial infarction, n(%)'), di] = f'{df.heartattack.sum():.0f}({df.heartattack.mean()*100:.1f}%)'
@@ -157,6 +172,11 @@ df_res.iloc[rows.index('N'), di] = len(df)
 df_res.iloc[rows.index('Age, mean (SD), y'), di] = f'{df.age.mean():.1f} ({df.age.std():.1f})'
 df_res.iloc[rows.index('    Female, n(%)'), di] = f'{(df.sexM==0).sum()}({(df.sexM==0).mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Male, n(%)'), di] = f'{(df.sexM==1).sum()}({(df.sexM==1).mean()*100:.1f}%)'
+print(dataset)
+print(f'Female N(event) = {((df.event=="dementia")&(df.sexM==0)).sum()}')
+print(f'Male N(event) = {((df.event=="dementia")&(df.sexM==1)).sum()}')
+print(f'Age<70: N = {(df.age<70).sum()}, N(event) = {((df.age<70)&(df.event=="dementia")).sum()}')
+print(f'Age>=70: N = {(df.age>=70).sum()}, N(event) = {((df.age>=70)&(df.event=="dementia")).sum()}')
 df_res.iloc[rows.index('    Asian, n(%)'), di] = f'{df.race_Chinese.sum()}({df.race_Chinese.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Black, n(%)'), di] = f'{df.race_Black.sum()}({df.race_Black.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Hispanic, n(%)'), di] = f'{df.race_Hispanic.sum()}({df.race_Hispanic.mean()*100:.1f}%)'
@@ -178,7 +198,9 @@ q1, q2, q3 = np.nanpercentile(df.time2event, (0,50,100))
 df_res.iloc[rindex(rows, 'Follow-up time, median (min-max), y'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
-#df_res.loc['Current smoker, n(%)', di] = f'{}({:.1f}%)'
+df2 = df.dropna(subset='CASIscore').reset_index(drop=True)
+df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'CASI {df2.CASIscore.median():.0f} ({(df2.CASIscore>=77).mean()*100:.1f}%)'
+df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Myocardial infarction, n(%)'), di] = f'{df.heartattack.sum():.0f}({df.heartattack.mean()*100:.1f}%)'
@@ -204,6 +226,11 @@ df_res.iloc[rows.index('N'), di] = len(df)
 df_res.iloc[rows.index('Age, mean (SD), y'), di] = f'{df.age.mean():.1f} ({df.age.std():.1f})'
 df_res.iloc[rows.index('    Female, n(%)'), di] = f'{(df.sexM==0).sum()}({(df.sexM==0).mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Male, n(%)'), di] = f'{(df.sexM==1).sum()}({(df.sexM==1).mean()*100:.1f}%)'
+print(dataset)
+print(f'Female N(event) = {((df.event=="dementia")&(df.sexM==0)).sum()}')
+print(f'Male N(event) = {((df.event=="dementia")&(df.sexM==1)).sum()}')
+print(f'Age<70: N = {(df.age<70).sum()}, N(event) = {((df.age<70)&(df.event=="dementia")).sum()}')
+print(f'Age>=70: N = {(df.age>=70).sum()}, N(event) = {((df.age>=70)&(df.event=="dementia")).sum()}')
 df_res.iloc[rows.index('    Asian, n(%)'), di] = f'{df.race_Asian.sum()}({df.race_Asian.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Black, n(%)'), di] = f'{df.race_Black.sum()}({df.race_Black.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Hispanic, n(%)'), di] = f'{df.ethnicity_Hispanic.sum()}({df.ethnicity_Hispanic.mean()*100:.1f}%)'
@@ -225,7 +252,9 @@ q1, q2, q3 = np.nanpercentile(df.time2event, (0,50,100))
 df_res.iloc[rindex(rows, 'Follow-up time, median (min-max), y'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
-#df_res.loc['Current smoker, n(%)', di] = f'{}({:.1f}%)'
+df2 = df.dropna(subset='mmse').reset_index(drop=True)
+df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Myocardial infarction, n(%)'), di] = f'{df.heartattack.sum():.0f}({df.heartattack.mean()*100:.1f}%)'
@@ -251,6 +280,11 @@ df_res.iloc[rows.index('N'), di] = len(df)
 df_res.iloc[rows.index('Age, mean (SD), y'), di] = f'{df.age.mean():.1f} ({df.age.std():.1f})'
 df_res.iloc[rows.index('    Female, n(%)'), di] = f'{(df.sexM==0).sum()}({(df.sexM==0).mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Male, n(%)'), di] = f'{(df.sexM==1).sum()}({(df.sexM==1).mean()*100:.1f}%)'
+print(dataset)
+print(f'Female N(event) = {((df.event=="dementia")&(df.sexM==0)).sum()}')
+print(f'Male N(event) = {((df.event=="dementia")&(df.sexM==1)).sum()}')
+print(f'Age<70: N = {(df.age<70).sum()}, N(event) = {((df.age<70)&(df.event=="dementia")).sum()}')
+print(f'Age>=70: N = {(df.age>=70).sum()}, N(event) = {((df.age>=70)&(df.event=="dementia")).sum()}')
 df_res.iloc[rows.index('    Asian, n(%)'), di] = '0(0%)'
 df_res.iloc[rows.index('    Black, n(%)'), di] = f'{df.race_Black.sum()}({df.race_Black.mean()*100:.1f}%)'
 df_res.iloc[rows.index('    Hispanic, n(%)'), di] = '--'
@@ -270,7 +304,9 @@ q1, q2, q3 = np.nanpercentile(df.time2event, (0,50,100))
 df_res.iloc[rindex(rows, 'Follow-up time, median (min-max), y'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
-#df_res.loc['Current smoker, n(%)', di] = f'{}({:.1f}%)'
+df2 = df.dropna(subset='mmse').reset_index(drop=True)
+df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Myocardial infarction, n(%)'), di] = f'{df.heartattack.sum():.0f}({df.heartattack.mean()*100:.1f}%)'
@@ -283,6 +319,7 @@ df_res.iloc[rows.index('Sleep EEG-based brain age index (BAI), mean (SD), y'), d
 
 
 print(df_res)
+breakpoint()
 df_res.to_excel('table1.xlsx', index=False)
 
 

@@ -73,6 +73,7 @@ def main():
     """
     df = pd.read_csv('dataset_MrOS_.csv')
     df['race_NonWhite'] = ((df.race_Black+df.race_Asian+df.race_Other)>0).astype(int)
+    df['smoke_current'] = (df.tursmoke==2).astype(int)
     cols = ['id', 'prevalent_dementia', 'inc_dementia', 'dement3', 'dement4', 'BAI',
        'COUPL_OVERLAP_C', 'DENS_C',
        'alpha_bandpower_kurtosis_C_N2', 'alpha_bandpower_mean_C_N1',
@@ -81,9 +82,10 @@ def main():
        'kurtosis_N3_C', 'sigma_bandpower_kurtosis_C_N2',
        'theta_bandpower_kurtosis_C_N2', 'theta_bandpower_kurtosis_C_N3',
     'age', 'educcollege', 'BMI', 'race_Black', 'race_Asian', 'race_Other', 'race_NonWhite',
-    'sleepmed', 'pascore', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression',
+    'sleepmed', 'pascore', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression', 'smoke_current',
     'tms', 'AHI']#, 'v2alzh']
     df = df[cols]
+    breakpoint()
     df = df[df.BAI.notna()].reset_index(drop=True)
     
     # get APOE e4
@@ -185,11 +187,12 @@ def main():
        'kurtosis_N3_C', 'sigma_bandpower_kurtosis_C_N2',
        'theta_bandpower_kurtosis_C_N2', 'theta_bandpower_kurtosis_C_N3',
     'age', 'educcollege', 'BMI', 'race_Black', 'race_Asian', 'race_Other', 'race_NonWhite',
-    'sleepmed', 'pascore', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression',
+    'sleepmed', 'pascore', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression', 'smoke_current',
     'tms', 'AHI', 'APOE4Count', 'event', 'time2event']
     df = df[cols]
     
     print(df)
+    breakpoint()
     df.to_csv('dataset_MrOS.csv', index=False)
 
 

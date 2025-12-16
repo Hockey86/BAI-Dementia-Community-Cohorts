@@ -7,7 +7,7 @@ df <- read.csv(file.path(folder, sprintf('dataset_%s.csv', dataset)))
 df$event <- factor(df$event, levels=c('censor', 'dementia', 'death'))
 df <- df[df$prevalent_dementia==0,]
 
-cols <- c('age', 'educcollege', 'BMI', 'sleepmed', 'walking')
+cols <- c('age', 'educcollege', 'BMI', 'sleepmed', 'walking', 'smoke_current')
 
 formula.str1 <- sprintf('Surv(time2event, event) ~ BAI*APOE4 + %s', paste0(cols, collapse='+'))
 formula.str2 <- gsub('Surv(time2event, event)', 'Surv(fgstart, fgstop, fgstatus)', formula.str1, fixed=T)

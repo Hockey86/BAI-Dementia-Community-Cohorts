@@ -7,7 +7,7 @@ def main():
     df = pd.read_excel('../BAI_SHHS.xlsx')
     df = df[df.visitnumber=='shhs1'].reset_index(drop=True)
     
-    df_shhs = pd.read_csv('../shhs1-dataset-0.20.0.csv')
+    df_shhs = pd.read_csv('/data/haoqisun/dataset_SHHS/shhs1-dataset-0.21.0.csv')
     df_shhs = df_shhs[df_shhs.overall_shhs1>=3].reset_index(drop=True)
     df_shhs['pptidr'] = df_shhs.pptidr.astype(str).str.strip()
     m = {0:0, 1:1, 2:0}
@@ -23,7 +23,7 @@ def main():
     cols = ['BMI', 'diabetes', 'hypertension', 'AHI', 'heartattack', 'stroke', 'depression', 'sleepmed', 'smokstat_s1']
     df = df.merge(df_shhs[['nsrrid', 'pptidr']+cols], on='nsrrid', how='inner', validate='1:1')
 
-    df_link = pd.read_sas('../parent_shhs_public_2016.sas7bdat')
+    df_link = pd.read_sas('/data/haoqisun/dataset_SHHS/parent_shhs_public_2016.sas7bdat')
     df_link = df_link[df_link.parent==b'FOFF'].reset_index(drop=True)#|(df_link.parent==b'OM1')
     df_link = df_link.rename(columns={'pid':'PID'})
     df_link['PID'] = df_link.PID.astype(int)
@@ -99,13 +99,15 @@ def main():
     mapping = {0:0, 1:0, 2:1, 3:0, 4:1, 5:2, 6:0, 7:0, 8:np.nan, 9:np.nan}
     df2['APOE4Count'] = df2.E_TYPE.apply(lambda x:mapping[x])
     df = df.merge(df2[['PID', 'APOE4Count']], on='PID', how='left', validate='1:1')
+
+    df = df.rename(columns={'smokstat_s1':'smoke_current'})
     
     cols = ['visitnumber', 'nsrrid', 'PID','pptidr', 'parent', 'days_studyv1',
         'prevalent_dementia', 'inc_dementia', 'time2event', 'event',
         'age', 'sexM', 'race_Asian', 'race_Black',
         'race_White', 'race_Other', 'ethnicity_Hispanic',# 'race_Unknown',
         'educcollege', 'BMI', 'diabetes', 'hypertension', 'AHI', 'heartattack',
-        'stroke', 'depression', 'sleepmed', 'smokstat_s1',  'pascore', 'walkforexercise', 'mmse',
+        'stroke', 'depression', 'sleepmed', 'smoke_current',  'pascore', 'walkforexercise', 'mmse',
         'BA', 'BAI', 'APOE4Count','COUPL_OVERLAP_C',
         'DENS_C', 'alpha_bandpower_kurtosis_C_N2', 'alpha_bandpower_mean_C_N1',
         'delta_alpha_mean_C_N3', 'delta_bandpower_kurtosis_C_N2',

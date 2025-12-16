@@ -122,8 +122,8 @@ def main():
     
     # walking
     df2 = pd.read_sas(os.path.join(data_dir, 'v8lifestyle.sas7bdat'))
-    df2 = df2.rename(columns={'V8EXER':'walking'})
-    df = df.merge(df2[['ID', 'walking']], on='ID', how='left', validate='1:1')
+    df2 = df2.rename(columns={'V8EXER':'walking', 'V8SMOK':'smoke_current'})
+    df = df.merge(df2[['ID', 'walking', 'smoke_current']], on='ID', how='left', validate='1:1')
     
     # diabetes + hypertension + heartattack + stroke
     df2 = pd.read_sas(os.path.join(data_dir, 'v8medhx.sas7bdat'))
@@ -155,7 +155,7 @@ def main():
        'kurtosis_N3_C', 'sigma_bandpower_kurtosis_C_N2',
        'theta_bandpower_kurtosis_C_N2', 'theta_bandpower_kurtosis_C_N3',
     'age', 'educcollege', 'BMI', 'Race',
-    'sleepmed', 'walking', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression',
+    'sleepmed', 'walking', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression','smoke_current',
     'mmse', 'AHI', 'APOE4']
     df = df[cols]
     

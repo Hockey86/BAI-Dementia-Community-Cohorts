@@ -4,7 +4,7 @@ import pandas as pd
 
 
 def main():
-    dataset_dir = '/data/haoqisun/dataset_MESA'
+    dataset_dir = '/data/haoqisun/dataset_MESA_2024'
     
     df_ex1 = pd.read_stata(os.path.join(dataset_dir, 'MESAE1FinalLabel20240307.dta'), convert_categoricals=False)
     df_ex2 = pd.read_stata(os.path.join(dataset_dir, 'MESAe2FinalLabel20240209.dta'))
@@ -15,7 +15,6 @@ def main():
     
     # get CASI
     df_ex5_casi = pd.read_sas(os.path.join(dataset_dir, 'MESAe5_CASI_20190823.sas7bdat'))
-    breakpoint()
     df_ex5_casi.loc[(df_ex5_casi.valid5!=1)|(df_ex5_casi.flagcasi5c==1), 'casisum5c'] = np.nan
     df_ex5 = df_ex5.drop(columns='casisum5c').merge(df_ex5_casi[['idno', 'casisum5c']], on='idno', how='left', validate='1:1')
     
@@ -24,7 +23,6 @@ def main():
     df_ex6 = df_ex6.merge(df_ex6_casi[['idno', 'casisum6c']], on='idno', how='left', validate='1:1')
     
     # BAI
-    
     df = pd.read_csv('BAI_MESA-with-features.csv')
     df = df.dropna(subset='BAI', ignore_index=True)
     dfm = pd.read_csv(os.path.join(dataset_dir, 'mesa_nsrr_bridge_ids.csv'))
@@ -77,6 +75,27 @@ def main():
     df2['days_sl_to_ltfu'] = df2.days_bl_to_ltfu-df2.days_bl_to_sleepstudy
 
     df = df.merge(df2[['idno', 'days_bl_to_sleepstudy', 'days_sl_to_dementia', 'days_sl_to_death', 'days_sl_to_ltfu']], on='idno', how='inner', validate='1:1')
+    """
+# compare age and sex of missing BAI vs not
+# first comment line 27: #df = df.dropna(subset='BAI', ignore_index=True)
+from scipy.stats import ttest_ind
+
+df3=df2.merge(df,on='idno',how='left',validate='1:1')
+
+aa = df3.age[df3.BA.notna()].dropna().values
+bb = df3.age[df3.BA.isna()].dropna().values
+print(aa.mean(), aa.std(), bb.mean(), bb.std())
+# 69.45425188374597 9.100403101178479 70.5813953488372 10.234989140402856
+print(ttest_ind(aa, bb))
+# TtestResult(statistic=-0.8001267697892754, pvalue=0.4237374321000379, df=1899.0)
+
+aa=df3.sexM[df3.BA.notna()].dropna().values
+bb=df3.sexM[df3.BA.isna()].dropna().values
+print(aa.mean()*100, bb.mean()*100)
+# 47.0% 41.9%
+print(proportions_ztest([aa.sum(),bb.sum()],[len(aa),len(bb)])[1])
+# 0.5054952810669111
+    """
     df['inc_dementia'] = ((df.days_sl_to_dementia>0)|(df.alzh6c==1)).astype(int)
     df['prevalent_dementia'] = ((df.days_sl_to_dementia<=0)|(df[['alzh1c', 'alzh2c', 'alzh3c', 'alzh4c', 'alzh5c']]==1).any(axis=1)).astype(int)
     
@@ -113,7 +132,8 @@ def main():
     df_ex5['depression'] = (df_ex5.cesd5c>=16).astype(float)
     df_ex5.loc[df_ex5.cesd5c.isna(), 'depression'] = np.nan
     df_ex5.loc[df_ex5.CASIscore<20, 'CASIscore'] = np.nan
-    df = df.merge(df_ex5[['idno', 'BMI', 'walk_min_per_wk', 'diabetes', 'hypertension', 'depression', 'CASIscore']], on='idno', how='left', validate='1:1')
+    df_ex5['smoke_current'] = (df_ex5.smkstat5=='Current smoker').astype(int)
+    df = df.merge(df_ex5[['idno', 'BMI', 'walk_min_per_wk', 'diabetes', 'hypertension', 'depression', 'smoke_current', 'CASIscore']], on='idno', how='left', validate='1:1')
     
     #df2 = pd.read_sas(os.path.join(dataset_dir, 'MESAe5_CASI_20190823.sas7bdat'))
     

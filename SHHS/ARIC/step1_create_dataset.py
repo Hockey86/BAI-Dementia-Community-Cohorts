@@ -7,7 +7,7 @@ def main():
     df = pd.read_excel('../BAI_SHHS.xlsx')
     df = df[df.visitnumber=='shhs1'].reset_index(drop=True)
     
-    df_shhs = pd.read_csv('/data/haoqisun/dataset_SHHS/shhs1-dataset-0.20.0.csv')
+    df_shhs = pd.read_csv('/data/haoqisun/dataset_SHHS/shhs1-dataset-0.21.0.csv')
     df_shhs = df_shhs[df_shhs.overall_shhs1>=3].reset_index(drop=True)
     df_shhs['pptidr'] = df_shhs.pptidr.astype(str).str.strip()
     m = {0:0, 1:1, 2:0}
@@ -39,7 +39,6 @@ def main():
     # get dementia survival info by merging with dementia survival variables
     # get death info
     df_dem = pd.read_csv(os.path.join(data_dir, 'V7/CSV/status71.csv'))
-    breakpoint()
     df_dem = df_dem.rename(columns={'ID_C':'pptidr', 'DEMDXL3CENS_71':'DEM_STATUS', 'COXDATE_DEMDXL3_71_FOLLOWUPDAYS':'DEM_SURVDATE', 'DATEOFDEATH_FOLLOWUPDAYS':'DATEDTH', 'STATUSDATE71_FOLLOWUPDAYS':'FOLLOWUPDAYS'})
     df = df.merge(df_dem[['pptidr', 'DEM_STATUS', 'DEM_SURVDATE', 'DATEDTH', 'FOLLOWUPDAYS']], on='pptidr', how='inner', validate='1:1')
     print(f'after merging with df_dem, df.shape = {df.shape}')
@@ -80,12 +79,14 @@ def main():
     df_cog = pd.read_csv(os.path.join(data_dir, 'v5/CSV/derive51.csv'))
     df_cog = df_cog.rename(columns={'ID_C':'pptidr', 'PRORATEDMMS51':'mmse'})
     df = df.merge(df_cog[['pptidr', 'mmse']], on='pptidr', how='left', validate='1:1')
+
+    df = df.rename(columns={'smokstat_s1':'smoke_current'})
     
     cols = ['visitnumber', 'nsrrid', 'pptidr', 'days_studyv1',
         'prevalent_dementia', 'inc_dementia', 'time2event', 'event',
         'age', 'sexM', 'race_Black', 'race_White', 'race_Other',
         'educcollege', 'BMI', 'diabetes', 'hypertension', 'AHI', 'heartattack',
-        'stroke', 'depression', 'sleepmed', 'smokstat_s1',  'exercise', 'mmse',
+        'stroke', 'depression', 'sleepmed', 'smoke_current',  'exercise', 'mmse',
         'BA', 'BAI','COUPL_OVERLAP_C',
         'DENS_C', 'alpha_bandpower_kurtosis_C_N2', 'alpha_bandpower_mean_C_N1',
         'delta_alpha_mean_C_N3', 'delta_bandpower_kurtosis_C_N2',

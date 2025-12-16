@@ -2,27 +2,39 @@ library(meta)
 library(metafor)
 library(metap)
 
+args <- commandArgs(trailingOnly = TRUE)
+col.interaction <- ifelse(length(args) >= 1, args[1], 'APOE4')
+
 # Prepare the data
 data.dir <- "/data/haoqisun/BAI_dementia_community"
-#data.type <- "withoutAPOE"
-col.interaction <- 'APOE4'
-res.dir <- file.path(data.dir, 'meta-analysis')#, data.type)
+res.dir <- file.path(data.dir, 'meta-analysis', 'interaction')
 
-df.mesa <- read.csv(file.path(data.dir, sprintf('MESA/interaction_results_MESA_%s-survival.csv', col.interaction)))
-#df.aric <- read.csv(file.path(data.dir, sprintf('SHHS/ARIC/interaction_results_ARIC_%s-survival.csv', col.interaction)))
-df.fhs <- read.csv(file.path(data.dir, sprintf('SHHS/FHS/interaction_results_FHS_%s-survival.csv', col.interaction)))
-df.mros <- read.csv(file.path(data.dir, sprintf('MrOS/interaction_results_MrOS_%s-survival.csv', col.interaction)))
-df.sof <- read.csv(file.path(data.dir, sprintf('SOF/interaction_results_SOF_%s-survival.csv', col.interaction)))
+mesa_file <- file.path(data.dir, sprintf('MESA/interaction_results_MESA_%s-survival.csv', col.interaction))
+df.mesa <- if (file.exists(mesa_file)) read.csv(mesa_file) else NULL
 
-scale <- 10
+aric_file <- file.path(data.dir, sprintf('SHHS/ARIC/interaction_results_ARIC_%s-survival.csv', col.interaction))
+df.aric <- if (file.exists(aric_file)) read.csv(aric_file) else NULL
 
-studies <- c("MESA", "FHS", "MrOS", "SOF")#, "ARIC")
+fhs_file <- file.path(data.dir, sprintf('SHHS/FHS/interaction_results_FHS_%s-survival.csv', col.interaction))
+df.fhs <- if (file.exists(fhs_file)) read.csv(fhs_file) else NULL
+
+mros_file <- file.path(data.dir, sprintf('MrOS/interaction_results_MrOS_%s-survival.csv', col.interaction))
+df.mros <- if (file.exists(mros_file)) read.csv(mros_file) else NULL
+
+sof_file <- file.path(data.dir, sprintf('SOF/interaction_results_SOF_%s-survival.csv', col.interaction))
+df.sof <- if (file.exists(sof_file)) read.csv(sof_file) else NULL
+
+scale <- 1
+
+all_studies <- c("MESA", "ARIC", "FHS", "MrOS", "SOF")
 
 hrs <- c()
 ci_lowers <- c()
 ci_uppers <- c()
 p_values <- c()
-for (study in studies) {
+available_studies <- c()
+
+for (study in all_studies) {
   if (study=='MrOS') {
     df_ <- df.mros
   } else if (study=='SOF') {
@@ -34,12 +46,18 @@ for (study in studies) {
   } else if (study=='ARIC') {
     df_ <- df.aric
   }
-  hrs <- c(hrs, df_$exp.coef.)
-  ci_lowers <- c(ci_lowers, df_$lower..95)
-  ci_uppers <- c(ci_uppers, df_$upper..95)
-  p_values <- c(p_values, df_$Pr...z..)
+  
+  if (!is.null(df_)) {
+    hrs <- c(hrs, df_$exp.coef.)
+    ci_lowers <- c(ci_lowers, df_$lower..95)
+    ci_uppers <- c(ci_uppers, df_$upper..95)
+    p_values <- c(p_values, df_$Pr...z..)
+    available_studies <- c(available_studies, study)
+  } else {
+    cat(sprintf("Warning: Interaction file for study %s with %s does not exist, skipping...\n", study, col.interaction))
+  }
 }
-data <- data.frame(study=studies, hr=hrs, ci_lower=ci_lowers, ci_upper=ci_uppers, p_value=p_values)
+data <- data.frame(study=available_studies, hr=hrs, ci_lower=ci_lowers, ci_upper=ci_uppers, p_value=p_values)
 
 # Convert Odds Ratios to Log Odds Ratios
 data$log_hr <- log(data$hr)*scale
@@ -60,7 +78,7 @@ summary_text2 <- capture.output(p_combined)
 
 summary_text <- c(summary_text, summary_text2)
 writeLines(summary_text, file.path(res.dir, sprintf("meta_analysis_%s_interaction_result-survival.txt", col.interaction)))
-#print(summary_text)
+print(summary_text)
 
 #png(sprintf("forest_plot_%s.png", model.type), width = 700*2, height = 300*2)#, dpi=300)
 #forest(meta_result, plotwidth="24cm")

@@ -64,7 +64,7 @@ formula.str <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s + age + sexM', expo
 model1 <- coxph(as.formula(formula.str), weight=fgwt, data=pdata)
 sm <- summary(model1)
 print(sm)
-print(AIC(model1))
+print(c(AIC(model1), BIC(model1)))
 
 res1 <- c(Model='AgeOnly',
           sm$coefficients[exposure, c('exp(coef)', 'Pr(>|z|)')],
@@ -73,15 +73,15 @@ res1 <- c(Model='AgeOnly',
 
 
 if (data.type=='withAPOE') {
-    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'APOE4Count')
+    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'smoke_current', 'APOE4Count')
     
 } else if (data.type=='withoutAPOE-matched') {
-    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'APOE4Count')
+    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'smoke_current', 'APOE4Count')
     df <- df[complete.cases(df[,c('time2event','event',cols)]),]
-    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk')
+    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'smoke_current')
     
 } else {
-    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk')
+    cols <- c(exposure, 'age', 'sexM', 'race_Chinese', 'race_Black', 'race_Hispanic', 'educcollege', 'BMI', 'sleepmed', 'walk_min_per_wk', 'smoke_current')
 }
 print(colSums(is.na(df[,c('time2event','event',cols)])))
 df <- df[complete.cases(df[,c('time2event','event',cols)]),]
@@ -93,14 +93,24 @@ pdata <- finegray(formula1, data=df, etype='dementia')
 model2 <- coxph(formula2, weight=fgwt, data=pdata)
 sm <- summary(model2)
 print(sm)
-print(AIC(model2))
+print(c(AIC(model2), BIC(model2)))
+
+#formula.str1 <- sprintf('Surv(time2event, event) ~ %s+I(BAI^2)+I(BAI^3)', paste0(cols, collapse='+'))
+#formula.str2 <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s+I(BAI^2)+I(BAI^3)', paste0(cols, collapse='+'))
+#formula1 <- as.formula(formula.str1)
+#formula2 <- as.formula(formula.str2)
+#pdata <- finegray(formula1, data=df, etype='dementia')
+#model2p <- coxph(formula2, weight=fgwt, data=pdata)
+#sm <- summary(model2p)
+#print(sm)
+#print(c(AIC(model2p), BIC(model2p)))
 
 res2 <- c(Model='Intermediate',
           sm$coefficients[exposure, c('exp(coef)', 'Pr(>|z|)')],
           sm$conf.int[exposure, c('lower .95', 'upper .95')],
           Np=sm$nevent)#TODO N=
 print(sprintf('%s: Intermediate model N = %d', dataset, nrow(df)))
-#write.csv(df, file.path(folder, sprintf('dataset_%s_table1.csv', dataset)))
+write.csv(df, file.path(folder, sprintf('dataset_%s_table1.csv', dataset)))
 
 res <- survfit(Surv(time2event, event)~1, data=df)
 png(file.path(folder, sprintf("AJ_%s.png", dataset)), width = 3*300, height = 1.5*300)
@@ -109,11 +119,11 @@ dev.off()
 
 
 if (data.type=='withAPOE') {
-    formula.str1 <- sprintf('Surv(time2event, event) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + CASIscore + AHI + APOE4Count', exposure)
-    formula.str2 <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + CASIscore + AHI + APOE4Count', exposure)
+    formula.str1 <- sprintf('Surv(time2event, event) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression +smoke_current+ CASIscore + AHI + APOE4Count', exposure)
+    formula.str2 <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression+smoke_current+ CASIscore + AHI + APOE4Count', exposure)
 } else {
-    formula.str1 <- sprintf('Surv(time2event, event) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + CASIscore + AHI', exposure)
-    formula.str2 <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + CASIscore + AHI', exposure)
+    formula.str1 <- sprintf('Surv(time2event, event) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + smoke_current+CASIscore + AHI', exposure)
+    formula.str2 <- sprintf('Surv(fgstart, fgstop, fgstatus) ~ %s + age + sexM + race_Chinese + race_Black + race_Hispanic + educcollege + BMI + sleepmed + walk_min_per_wk + diabetes + hypertension + heartattack + stroke + depression + smoke_current+CASIscore + AHI', exposure)
 }
 formula1 <- as.formula(formula.str1)
 formula2 <- as.formula(formula.str2)
@@ -121,7 +131,7 @@ pdata <- finegray(formula1, data=df, etype='dementia')
 model3 <- coxph(formula2, weight=fgwt, data=pdata)
 sm <- summary(model3)
 print(sm)
-print(AIC(model3))
+print(c(AIC(model3), BIC(model3)))
 
 res3 <- c(Model='Full',
           sm$coefficients[exposure, c('exp(coef)', 'Pr(>|z|)')],

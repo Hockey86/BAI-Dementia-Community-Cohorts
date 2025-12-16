@@ -1,0 +1,24 @@
+           HR           95%-CI %W(common) %W(random)
+FHS-OS 2.3177 [1.2491; 4.3004]        8.1       24.2
+MrOS   1.2187 [1.0029; 1.4809]       82.0       48.9
+SOF    1.8552 [1.0584; 3.2517]        9.9       26.9
+
+Number of studies: k = 3
+
+                         HR           95%-CI    z p-value
+Common effect model  1.3387 [1.1222; 1.5970] 3.24  0.0012
+Random effects model 1.5945 [1.0616; 2.3947] 2.25  0.0246
+
+Quantifying heterogeneity:
+ tau^2 = 0.0782 [0.0000; 4.1618]; tau = 0.2797 [0.0000; 2.0400]
+ I^2 = 61.7% [0.0%; 89.1%]; H = 1.62 [1.00; 3.02]
+
+Test of heterogeneity:
+    Q d.f. p-value
+ 5.22    2  0.0736
+
+Details on meta-analytical method:
+- Inverse variance method
+- Restricted maximum-likelihood estimator for tau^2
+- Q-Profile method for confidence interval of tau^2 and tau
+chisq =  22.81798  with df =  6  p =  0.0008597896 

@@ -7,7 +7,7 @@ df <- read.csv(file.path(folder, sprintf('dataset_%s.csv', dataset)))
 df$event <- factor(df$event, levels=c('censor', 'dementia', 'death'))
 df <- df[df$prevalent_dementia==0,]
 
-cols <- c('educcollege', 'BMI', 'race_NonWhite', 'sleepmed', 'pascore')
+cols <- c('educcollege', 'BMI', 'race_NonWhite', 'sleepmed', 'pascore', 'smoke_current')
 df <- df[complete.cases(df[,c('time2event','event','BAI','age',cols)]),]
 df[,'age_group'] <- as.integer(df$age>=70)
 print(dim(df))
@@ -29,7 +29,7 @@ print(res)
 write.csv(t(res), file.path(folder, sprintf('interaction_results_%s_age-survival.csv', dataset)), row.names=F)
 
 
-cols <- c('age', 'educcollege', 'BMI', 'race_NonWhite', 'sleepmed', 'pascore')
+cols <- c('age', 'educcollege', 'BMI', 'race_NonWhite', 'sleepmed', 'pascore', 'smoke_current')
 
 formula.str1 <- sprintf('Surv(time2event, event) ~ BAI*APOE4Count + %s', paste0(cols, collapse='+'))
 formula.str2 <- gsub('Surv(time2event, event)', 'Surv(fgstart, fgstop, fgstatus)', formula.str1, fixed=T)
