@@ -25,11 +25,11 @@ seaborn.set_style('ticks')
 
 def main():
     paths = {
-    'MESA': '/data/haoqisun/BAI_dementia_community/MESA/dataset_MESA.csv',
-    'ARIC': '/data/haoqisun/BAI_dementia_community/SHHS/ARIC/dataset_ARIC.csv',
-    'FHS-OS': '/data/haoqisun/BAI_dementia_community/SHHS/FHS/dataset_FHS.csv',
-    'MrOS': '/data/haoqisun/BAI_dementia_community/MrOS/dataset_MrOS.csv',
-    'SOF': '/data/haoqisun/BAI_dementia_community/SOF/dataset_SOF.csv',
+    'MESA': '/data/haoqisun/BAI_dementia_community/MESA/dataset_MESA_table1.csv',
+    'ARIC': '/data/haoqisun/BAI_dementia_community/SHHS/ARIC/dataset_ARIC_table1.csv',
+    'FHS-OS': '/data/haoqisun/BAI_dementia_community/SHHS/FHS/dataset_FHS_table1.csv',
+    'MrOS': '/data/haoqisun/BAI_dementia_community/MrOS/dataset_MrOS_table1.csv',
+    'SOF': '/data/haoqisun/BAI_dementia_community/SOF/dataset_SOF_table1.csv',
     }
     datasets = list(paths.keys())
 
@@ -61,7 +61,8 @@ def main():
         ax.plot(lim2, lim2, c='k', ls='--', lw=0.5)
         if dataset!='All':
             df = pd.read_csv(paths[dataset])
-            df = df.dropna(subset=['age','BAI'])
+            #df = df.dropna(subset=['age','BAI'])
+            df['BAI'] = df.BAI*10  ## the BAIs in table1 is divided by 10
             age = df.age.values
             ba = df.age.values+df.BAI.values
             mae = np.mean(np.abs(ba-age))
@@ -69,7 +70,7 @@ def main():
             c = [cmap(norm(x)) for x in df.BAI.values]
             ax.scatter(df.age, df.age+df.BAI, s=4, facecolor=c, edgecolor='none', alpha=0.5)
             ax.text(0.05, 0.97, dataset, ha='left', va='top', transform=ax.transAxes)
-            ax.text(0.985, 0.03, f'N = {len(df):,}\nMAE = {mae:.1f} y\nCorr = {corr:.2f}', ha='right', va='bottom', transform=ax.transAxes)#, fontsize=11)
+            ax.text(0.985, 0.03, f'n = {len(df):,}\nMAE = {mae:.1f} y\nCorr = {corr:.2f}', ha='right', va='bottom', transform=ax.transAxes)#, fontsize=11)
             
             # Add color bar to SOF panel (panel E, i=4)
             if dataset == 'MESA':
@@ -114,8 +115,8 @@ def main():
     plt.tight_layout()
     #plt.show()
     plt.subplots_adjust(wspace=0.27)
-    #plt.savefig('CA_vs_BA.png', bbox_inches='tight', dpi=300, facecolor='w')
-    plt.savefig('CA_vs_BA.pdf')#, bbox_inches='tight', dpi=300, facecolor='w')
+    #plt.savefig('CA_vs_BA-table1.png', bbox_inches='tight', dpi=300, facecolor='w')
+    plt.savefig('CA_vs_BA-table1.pdf')#, bbox_inches='tight', dpi=300, facecolor='w')
 
 
 if __name__=='__main__':

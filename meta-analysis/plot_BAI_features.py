@@ -46,7 +46,7 @@ feat_names2 = [
 'Alpha power in N1',
 ]
 
-#"""
+"""
 df = {'Name':[], 'HR':[], 'LB':[], 'UB':[], 'P':[]}
 for fn in feat_names:
     with open(os.path.join('withoutAPOE', f'meta_analysis_result-survival-{fn}-Intermediate.txt'), 'r') as ff:
@@ -70,8 +70,10 @@ for fn in feat_names:
 df = pd.DataFrame(data=df)
 print(df)
 df.to_csv('BAI_feature_coefs.csv', index=False)
-#"""
-#df = pd.read_csv('BAI_feature_coefs.csv')
+"""
+df = pd.read_csv('BAI_feature_coefs.csv')
+#df.to_excel('values_for_Figure4.xlsx', index=False)
+print(df)
 
 plt.close()
 fig, ax = plt.subplots(figsize=(10*0.7, 8*0.7))

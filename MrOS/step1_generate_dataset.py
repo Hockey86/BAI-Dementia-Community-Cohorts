@@ -16,8 +16,9 @@ import pandas as pd
 
 
 def main():
-    """
+    #"""
     df = pd.read_stata('final_Dataset_psg_AD_230616.dta')
+    breakpoint()
     df = df.rename(columns={x:x.replace('3ms','tms') for x in df.columns})  # to use statsmodels.formula
     df['id'] = df.id.str.lower()
 
@@ -70,7 +71,7 @@ def main():
     
     df = df[cols]
     df = df.rename(columns={'vsage1':'age', 'gieduc':'educcollege', 'hwbmi':'BMI', 'pqpslmed':'sleepmed', 'mhdiab':'diabetes', 'mhbp':'hypertension', 'mhmi':'heartattack', 'mhstrk':'stroke', 'dpgdsyn':'depression', 'vstms':'tms', 'poordi4':'AHI'})
-    """
+    #"""
     df = pd.read_csv('dataset_MrOS_.csv')
     df['race_NonWhite'] = ((df.race_Black+df.race_Asian+df.race_Other)>0).astype(int)
     df['smoke_current'] = (df.tursmoke==2).astype(int)
@@ -85,7 +86,6 @@ def main():
     'sleepmed', 'pascore', 'diabetes', 'hypertension', 'heartattack', 'stroke', 'depression', 'smoke_current',
     'tms', 'AHI']#, 'v2alzh']
     df = df[cols]
-    breakpoint()
     df = df[df.BAI.notna()].reset_index(drop=True)
     
     # get APOE e4

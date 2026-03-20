@@ -24,7 +24,7 @@ def main():
     
     # BAI
     df = pd.read_csv('BAI_MESA-with-features.csv')
-    df = df.dropna(subset='BAI', ignore_index=True)
+    #df = df.dropna(subset='BAI', ignore_index=True)
     dfm = pd.read_csv(os.path.join(dataset_dir, 'mesa_nsrr_bridge_ids.csv'))
     df = df.merge(dfm, on='mesaid', how='inner', validate='1:1')
 
@@ -76,25 +76,26 @@ def main():
 
     df = df.merge(df2[['idno', 'days_bl_to_sleepstudy', 'days_sl_to_dementia', 'days_sl_to_death', 'days_sl_to_ltfu']], on='idno', how='inner', validate='1:1')
     """
-# compare age and sex of missing BAI vs not
-# first comment line 27: #df = df.dropna(subset='BAI', ignore_index=True)
-from scipy.stats import ttest_ind
+    # compare age and sex of missing BAI vs not
+    # first comment line 27: #df = df.dropna(subset='BAI', ignore_index=True)
+    from scipy.stats import ttest_ind
+    from statsmodels.stats.proportion import proportions_ztest
 
-df3=df2.merge(df,on='idno',how='left',validate='1:1')
+    df3=df2.merge(df,on='idno',how='left',validate='1:1')
 
-aa = df3.age[df3.BA.notna()].dropna().values
-bb = df3.age[df3.BA.isna()].dropna().values
-print(aa.mean(), aa.std(), bb.mean(), bb.std())
-# 69.45425188374597 9.100403101178479 70.5813953488372 10.234989140402856
-print(ttest_ind(aa, bb))
-# TtestResult(statistic=-0.8001267697892754, pvalue=0.4237374321000379, df=1899.0)
+    aa = df3.age[df3.BA.notna()].dropna().values
+    bb = df3.age[df3.BA.isna()].dropna().values
+    print(aa.mean(), aa.std(), bb.mean(), bb.std())
+    # 69.45425188374597 9.100403101178479 70.5813953488372 10.234989140402856
+    print(ttest_ind(aa, bb))
+    # TtestResult(statistic=-0.8001267697892754, pvalue=0.4237374321000379, df=1899.0)
 
-aa=df3.sexM[df3.BA.notna()].dropna().values
-bb=df3.sexM[df3.BA.isna()].dropna().values
-print(aa.mean()*100, bb.mean()*100)
-# 47.0% 41.9%
-print(proportions_ztest([aa.sum(),bb.sum()],[len(aa),len(bb)])[1])
-# 0.5054952810669111
+    aa=df3.sexM[df3.BA.notna()].dropna().values
+    bb=df3.sexM[df3.BA.isna()].dropna().values
+    print(aa.mean()*100, bb.mean()*100)
+    # 47.0% 41.9%
+    print(proportions_ztest([aa.sum(),bb.sum()],[len(aa),len(bb)])[1])
+    # 0.5054952810669111
     """
     df['inc_dementia'] = ((df.days_sl_to_dementia>0)|(df.alzh6c==1)).astype(int)
     df['prevalent_dementia'] = ((df.days_sl_to_dementia<=0)|(df[['alzh1c', 'alzh2c', 'alzh3c', 'alzh4c', 'alzh5c']]==1).any(axis=1)).astype(int)

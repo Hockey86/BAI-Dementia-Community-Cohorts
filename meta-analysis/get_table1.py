@@ -92,6 +92,8 @@ q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 df2 = df.dropna(subset='tms').reset_index(drop=True)
 df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'3MS {df2.tms.median():.0f} ({(df2.tms>=81).mean()*100:.1f}%)'
+q1, q3 = np.nanpercentile(df2.tms.values, (25,75))
+print(f'{dataset}: {df2.tms.median():.0f} ({q1:.0f}-{q3:.0f})')
 df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f} ({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f} ({df.diabetes.mean()*100:.1f}%)'
@@ -146,6 +148,8 @@ q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 df2 = df.dropna(subset='mmse').reset_index(drop=True)
 df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+q1, q3 = np.nanpercentile(df2.mmse.values, (25,75))
+print(f'{dataset}: {df2.mmse.median():.0f} ({q1:.0f}-{q3:.0f})')
 df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
@@ -200,6 +204,8 @@ q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 df2 = df.dropna(subset='CASIscore').reset_index(drop=True)
 df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'CASI {df2.CASIscore.median():.0f} ({(df2.CASIscore>=77).mean()*100:.1f}%)'
+q1, q3 = np.nanpercentile(df2.CASIscore.values, (25,75))
+print(f'{dataset}: {df2.CASIscore.median():.0f} ({q1:.0f}-{q3:.0f})')
 df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
@@ -254,6 +260,8 @@ q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 df2 = df.dropna(subset='mmse').reset_index(drop=True)
 df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+q1, q3 = np.nanpercentile(df2.mmse.values, (25,75))
+print(f'{dataset}: {df2.mmse.median():.0f} ({q1:.0f}-{q3:.0f})')
 df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
@@ -306,6 +314,8 @@ q1, q2, q3 = np.nanpercentile(df.BMI, (25,50,75))
 df_res.iloc[rows.index('Body mass index (BMI), median (IQR), kg/m2'), di] = f'{q2:.1f} ({q1:.1f}-{q3:.1f})'
 df2 = df.dropna(subset='mmse').reset_index(drop=True)
 df_res.iloc[rows.index('Baseline cognitive score, median (% normal)'), di] = f'MMSE {df2.mmse.median():.0f} ({(df2.mmse>=24).mean()*100:.1f}%)'
+q1, q3 = np.nanpercentile(df2.mmse.values, (25,75))
+print(f'{dataset}: {df2.mmse.median():.0f} ({q1:.0f}-{q3:.0f})')
 df_res.iloc[rows.index('Current smoker, n(%)'), di] = f'{df.smoke_current.sum()}({df.smoke_current.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Hypertension, n(%)'), di] = f'{df.hypertension.sum():.0f}({df.hypertension.mean()*100:.1f}%)'
 df_res.iloc[rows.index('Diabetes, n(%)'), di] = f'{df.diabetes.sum():.0f}({df.diabetes.mean()*100:.1f}%)'
