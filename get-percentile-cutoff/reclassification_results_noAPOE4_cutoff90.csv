@@ -1,0 +1,9 @@
+group,n,pct_of_total,dementia_pct,death_pct
+BAI>0 & Percentile>90,732,11.1,21.0,23.6
+BAI<=0 & Percentile>90,15,0.2,46.7,6.7
+BAI>0 & Percentile<=90,1820,27.6,15.9,26.0
+BAI<=0 & Percentile<=90,4026,61.1,14.6,24.1
+BAI>0,2552,38.7,17.4,25.4
+BAI<=0,4041,61.3,14.7,24.0
+Percentile>90,747,11.3,21.6,23.3
+Percentile<=90,5846,88.7,15.0,24.7

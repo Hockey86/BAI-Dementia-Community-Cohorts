@@ -18,7 +18,6 @@ import pandas as pd
 def main():
     #"""
     df = pd.read_stata('final_Dataset_psg_AD_230616.dta')
-    breakpoint()
     df = df.rename(columns={x:x.replace('3ms','tms') for x in df.columns})  # to use statsmodels.formula
     df['id'] = df.id.str.lower()
 
@@ -70,6 +69,7 @@ def main():
        'theta_bandpower_kurtosis_C_N2', 'theta_bandpower_kurtosis_C_N3',]
     
     df = df[cols]
+    breakpoint()
     df = df.rename(columns={'vsage1':'age', 'gieduc':'educcollege', 'hwbmi':'BMI', 'pqpslmed':'sleepmed', 'mhdiab':'diabetes', 'mhbp':'hypertension', 'mhmi':'heartattack', 'mhstrk':'stroke', 'dpgdsyn':'depression', 'vstms':'tms', 'poordi4':'AHI'})
     #"""
     df = pd.read_csv('dataset_MrOS_.csv')
