@@ -46,6 +46,8 @@ recalc    = False
 in_path   = 'dataset_all_percentile_BAI_noAPOE4.csv'
 
 df = pd.read_csv(f'cutoff_results_lococv{suffix}.csv')
+df_test  = pd.read_csv(f'cutoff_results_lococv_test{suffix}.csv')
+df_boot_hr = pd.read_csv(f'cutoff_bootstrap_HR{suffix}.csv')
 
 cutoff    = 90
 out_plot  = f'figure1{suffix}_cut{cutoff}.png'
@@ -55,7 +57,8 @@ apoe4_lbl = 'with APOE4' if apoe4 else 'no APOE4'
 
 COLORS = {'high': '#d62728', 'low': '#1f77b4'}
 
-df.loc[df.held_cohort=='FHS', 'held_cohort'] = 'FHS-OS'
+for d in [df, df_test]:
+    d.loc[d.held_cohort=='FHS', 'held_cohort'] = 'FHS-OS'
 
 cohort2color = {
     'MESA': '#CC79A7',
@@ -65,43 +68,76 @@ cohort2color = {
     'SOF': '#E69F00'}
 
 plt.close()
-fig = plt.figure(figsize=(11,6))
-gs = fig.add_gridspec(2,2,height_ratios=[1,1], width_ratios=[5,6])
+fig = plt.figure(figsize=(14,6))
+gs = fig.add_gridspec(2,3,height_ratios=[1,1], width_ratios=[4,4,6])
+
+
+def plot_sweep(ax_hr, ax_p, lines, panel_hr, panel_p):
+    """HR and -log10(p) vs cutoff. lines: list of (df, color, label, mark_selected);
+    star = cutoff selected on the training cohorts."""
+    for d, color, label, mark_selected in lines:
+        cutoff_vals = d.cutoff.values
+        hr = d.HR.values
+        log_pval = -np.log10(d.pvalue.values)
+
+        ax_hr.plot(cutoff_vals, hr, c=color, label=label)
+        ax_p.plot(cutoff_vals, log_pval, c=color, label=label)
+        if mark_selected:
+            sel = d.selected.values.astype(bool)
+            ax_hr.scatter(cutoff_vals[sel], hr[sel], color=color, marker='*', s=80)
+            ax_p.scatter(cutoff_vals[sel], log_pval[sel], color=color, marker='*', s=80)
+    ax_hr.yaxis.grid(True)
+    ax_hr.set_ylabel('Hazard ratio')
+    ax_hr.set_xlim(49, 96)
+    ax_hr.set_xticks([50, 60, 70, 80, 90])
+    ax_hr.text(-0.17, 1.02, panel_hr, ha='right', va='top', transform=ax_hr.transAxes, fontweight='bold')
+    ax_hr.set_xlabel('')
+    plt.setp(ax_hr.get_xticklabels(), visible=False)
+    sns.despine(ax=ax_hr)
+
+    for p in [0.001, 0.01]:
+        ax_p.text(49.2, -np.log10(p)+0.003, f'p = {p:g}', ha='left', va='bottom',
+                  bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'))
+        ax_p.axhline(-np.log10(p), c='k', ls='--')
+    ax_p.yaxis.grid(True)
+    ax_p.set_ylabel('-log10(p)')
+    ax_p.set_xlabel('BAI percentile threshold (%)')
+    ax_p.text(-0.17, 1.0, panel_p, ha='right', va='top', transform=ax_p.transAxes, fontweight='bold')
+    sns.despine(ax=ax_p)
+
+
+# A, B: training cohorts of each fold (used to select the cutoff)
 ax1 = fig.add_subplot(gs[0,0])
 ax2 = fig.add_subplot(gs[1,0], sharex=ax1)
+plot_sweep(ax1, ax2,
+           [(df[df.held_cohort==c], color, c, True) for c, color in cohort2color.items()],
+           'A', 'B')
+ax1.set_ylim(0.95, 2.0)  # leave room for the legend, and keep HR = 1 off the bottom axis
+leg1 = ax1.legend(title='LOCO-CV Training Folds:', ncols=2, loc='upper left', alignment='left',
+                  frameon=False, columnspacing=0.8)
+leg1.get_title().set_fontweight('bold')
 
-for cohort, color in cohort2color.items():
-    mask = df.held_cohort==cohort
-    cutoff_vals = df.cutoff[mask].values
-    hr = df.HR[mask].values
-    log_pval = -np.log10(df.pvalue[mask].values)
-    best_id = np.argmax(log_pval)
+# C, D: held-out cohorts of all folds pooled together (evaluation only)
+ax3 = fig.add_subplot(gs[0,1])
+ax4 = fig.add_subplot(gs[1,1], sharex=ax3)
+plot_sweep(ax3, ax4, [(df_test[df_test.held_cohort=='Pooled'], 'k', None, False)], 'C', 'D')
+ax3.fill_between(df_boot_hr.cutoff, df_boot_hr.HR_boot_lo, df_boot_hr.HR_boot_hi,
+                 color='gray', alpha=0.25, lw=0)   # bootstrap 95% CI
+txt3 = ax3.text(0.03, 0.97, 'Pooled LOCO-CV Testing Folds:', ha='left', va='top', transform=ax3.transAxes,
+         fontsize=plt.rcParams['legend.title_fontsize'], fontweight='bold',
+         bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'))
+ax3.axhline(1, c='k', lw=1)
 
-    ax1.plot(cutoff_vals, hr, c=color, label=cohort)
-    ax1.scatter(cutoff_vals[[best_id]], hr[[best_id]], c=color, marker='*', s=80)
-    ax2.plot(cutoff_vals, log_pval, c=color, label=cohort)
-    ax2.scatter(cutoff_vals[[best_id]], log_pval[[best_id]], c=color, marker='*', s=80)
-ax1.yaxis.grid(True)
-ax1.set_ylabel('Hazard ratio')
-ax1.set_xlim(49, 96)
-ax1.text(-0.14, 1.02, 'A', ha='right', va='top', transform=ax1.transAxes, fontweight='bold')
-ax1.set_xlabel('')
-plt.setp(ax1.get_xticklabels(), visible=False)
-sns.despine(ax=ax1)
-
-ax1.legend(title='CV Fold:', ncols=2, loc='upper left', alignment='left', framealpha=0.5)
-ax2.text(49.2, -np.log10(0.001)+0.003, 'p = 0.001', ha='left', va='bottom',
-          bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'))
-ax2.axhline(-np.log10(0.001), c='k', ls='--')
-ax2.text(49.2, -np.log10(0.01)+0.003, 'p = 0.01', ha='left', va='bottom',
-          bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'))
-ax2.axhline(-np.log10(0.01), c='k', ls='--')
-ax2.yaxis.grid(True)
-ax2.set_ylabel('-log10(p)')
-ax2.set_xlabel('BAI percentile cutoff (%)')
-ax2.text(-0.14, 1.0, 'B', ha='right', va='top', transform=ax2.transAxes, fontweight='bold')
-sns.despine(ax=ax2)
-
+# same y-axis range for A & C and for B & D
+for ax_a, ax_b in [(ax1, ax3), (ax2, ax4)]:
+    lo = min(ax_a.get_ylim()[0], ax_b.get_ylim()[0])
+    hi = max(ax_a.get_ylim()[1], ax_b.get_ylim()[1])
+    ax_a.set_ylim(lo, hi)
+    ax_b.set_ylim(lo, hi)
+# HR ticks every 0.2, skipping one near the top that would collide with the panel label
+hr_ticks = np.arange(1.0, ax1.get_ylim()[1] - 0.1, 0.2)
+ax1.set_yticks(hr_ticks)
+ax3.set_yticks(hr_ticks)
 
 
 if os.path.exists(out_csv) and not recalc:
@@ -139,7 +175,7 @@ else:
     print(f'CIF values saved to: {out_csv}')
 
 # ---- Plot ---------------------------------------------------------------
-ax3 = fig.add_subplot(gs[:,1])
+ax5 = fig.add_subplot(gs[:,2])
 
 for key, color in COLORS.items():
     grp_label = (f'BAI ≥ {cutoff}% percentile' if key == 'high'
@@ -147,24 +183,26 @@ for key, color in COLORS.items():
     sub = cif_df[cif_df['group'] == grp_label]
     if sub.empty:
         continue
-    ax3.step(sub['time'], sub['CIF'] * 100,
-            where='post', color=color, linewidth=2, label=grp_label)
-    ax3.fill_between(sub['time'], sub['CI_lo'] * 100, sub['CI_hi'] * 100,
+    ax5.step(sub['time'], sub['CIF'] * 100,
+            where='post', color=color, linewidth=2, label=grp_label.replace('%','th'))
+    ax5.fill_between(sub['time'], sub['CI_lo'] * 100, sub['CI_hi'] * 100,
                     step='post', alpha=0.15, color=color)
 
-ax3.set_xlabel('Years since sleep study')
-ax3.set_ylabel('Cumulative dementia incidence (%)')
-#ax3.set_title(
-#    f'Cumulative Incidence of Dementia (Aalen-Johansen, {apoe4_lbl})\n'
-#    f'{cutoff}% percentile cutoff, 95% CI')
-ax3.set_xlim(0,10)
-ax3.set_ylim(0,16)
-ax3.legend(loc='upper left', framealpha=0.5, ncols=1)
-ax3.grid(True)#, alpha=0.3, linestyle='--')
-ax3.text(-0.1, 1.01, 'C', ha='right', va='top', transform=ax3.transAxes, fontweight='bold')
-sns.despine(ax=ax3)
+ax5.set_xlabel('Years since sleep study')
+ax5.set_ylabel('Cumulative dementia incidence (%)')
+ax5.set_xlim(0,10)
+ax5.set_ylim(0,16)
+ax5.legend(loc='upper left', framealpha=0.5, ncols=1)
+ax5.grid(True)#, alpha=0.3, linestyle='--')
+ax5.text(-0.15, 1.01, 'E', ha='right', va='top', transform=ax5.transAxes, fontweight='bold')
+sns.despine(ax=ax5)
 
-plt.tight_layout()
+plt.tight_layout(w_pad=0.2)
+
+# top-align the panel C text with the legend title in panel A (same row, so same axes-fraction height)
+fig.canvas.draw()
+title_top = leg1.get_title().get_window_extent().y1
+txt3.set_y(ax1.transAxes.inverted().transform((0, title_top))[1])
 plt.savefig(out_plot, dpi=300, bbox_inches='tight')
 print(f'Plot saved to:       {out_plot}')
 plt.savefig(out_plot_pdf, bbox_inches='tight')

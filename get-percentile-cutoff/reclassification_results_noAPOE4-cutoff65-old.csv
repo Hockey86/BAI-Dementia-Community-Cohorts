@@ -1,5 +1,0 @@
-group,n,pct_of_total,dementia_pct,death_pct
-BAI>=0 & Percentile>=65,2116,32.1,17.3,25.1
-BAI<0 & Percentile>=65,361,5.5,19.9,21.3
-BAI>=0 & Percentile<65,436,6.6,17.4,26.4
-BAI<0 & Percentile<65,3680,55.8,14.2,24.3

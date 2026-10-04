@@ -8,39 +8,45 @@ Output:
 import pandas as pd
 import numpy as np
 
-DATA_DIR = '..'
+DATA_DIR = '../..'
 
 
 def load_mesa(healthy=False):
     df = pd.read_csv(f'{DATA_DIR}/MESA/dataset_MESA_table1.csv')
+    healthy_mask = (df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)
+    df['healthy_indicator'] = healthy_mask.astype(int)
     if healthy:
-        df = df[(df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)].reset_index(drop=True)
+        df = df[healthy_mask].reset_index(drop=True)
     df = df[df.race_Hispanic!=1].reset_index(drop=True)
     df['dataset'] = 'MESA'
     df['race_Asian'] = df['race_Chinese']   # map Chinese -> Asian
     df['APOE4'] = (df['APOE4Count'] >= 1).astype(int)
     cols = ['dataset', 'age', 'sexM', 'race_Asian', 'race_Black', 'race_White',
-            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI']
+            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI', 'healthy_indicator']
     return df[cols]
 
 
 def load_mros(healthy=False):
     df = pd.read_csv(f'{DATA_DIR}/MrOS/dataset_MrOS_table1.csv')
+    healthy_mask = (df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)
+    df['healthy_indicator'] = healthy_mask.astype(int)
     if healthy:
-        df = df[(df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)].reset_index(drop=True)
+        df = df[healthy_mask].reset_index(drop=True)
     df['dataset'] = 'MrOS'
     df['sexM'] = 1                                  # all-male study
     df['race_White'] = (1 - df['race_NonWhite']).astype(int)
     df['APOE4'] = (df['APOE4Count'] >= 1).astype(int)
     cols = ['dataset', 'age', 'sexM', 'race_Asian', 'race_Black', 'race_White',
-            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI']
+            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI', 'healthy_indicator']
     return df[cols]
 
 
 def load_sof(healthy=False):
     df = pd.read_csv(f'{DATA_DIR}/SOF/dataset_SOF_table1.csv')
+    healthy_mask = (df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)
+    df['healthy_indicator'] = healthy_mask.astype(int)
     if healthy:
-        df = df[(df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)].reset_index(drop=True)
+        df = df[healthy_mask].reset_index(drop=True)
     df['dataset'] = 'SOF'
     df['sexM'] = 0                                  # all-female study
     # Race encoding in SOF: 1 = White, 2 = Black
@@ -48,30 +54,34 @@ def load_sof(healthy=False):
     df['race_Black'] = (df['Race'] == 2).astype(int)
     df['race_Asian'] = 0
     cols = ['dataset', 'age', 'sexM', 'race_Asian', 'race_Black', 'race_White',
-            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI']
+            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI', 'healthy_indicator']
     return df[cols]
 
 
 def load_aric(healthy=False):
     df = pd.read_csv(f'{DATA_DIR}/SHHS/ARIC/dataset_ARIC_table1.csv')
+    healthy_mask = (df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)
+    df['healthy_indicator'] = healthy_mask.astype(int)
     if healthy:
-        df = df[(df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)].reset_index(drop=True)
+        df = df[healthy_mask].reset_index(drop=True)
     df['dataset'] = 'ARIC'
     df['race_Asian'] = 0    # no Asian participants in ARIC
     df['APOE4'] = np.nan
     cols = ['dataset', 'age', 'sexM', 'race_Asian', 'race_Black', 'race_White',
-            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI']
+            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI', 'healthy_indicator']
     return df[cols]
 
 
 def load_fhs(healthy=False):
     df = pd.read_csv(f'{DATA_DIR}/SHHS/FHS/dataset_FHS_table1.csv')
+    healthy_mask = (df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)
+    df['healthy_indicator'] = healthy_mask.astype(int)
     if healthy:
-        df = df[(df.sleepmed==0)&(df.stroke==0)&(df.heartattack==0)&(df.smoke_current==0)].reset_index(drop=True)
+        df = df[healthy_mask].reset_index(drop=True)
     df['dataset'] = 'FHS'
     df['APOE4'] = (df['APOE4Count'] >= 1).astype(int)
     cols = ['dataset', 'age', 'sexM', 'race_Asian', 'race_Black', 'race_White',
-            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI']
+            'BMI', 'AHI', 'APOE4', 'event', 'time2event', 'BAI', 'healthy_indicator']
     return df[cols]
 
 
